@@ -1,0 +1,39 @@
+.artists-container {
+    flex: 1;
+    background-color: #181818;
+    color: white;
+    padding: 20px;
+  }
+  
+  .artists-title {
+    font-size: 2em;
+    margin-bottom: 20px;
+  }
+  
+  .artists-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  .artist-card {
+    background-color: #CCCCCC;
+    border-radius: 5px;
+    padding: 10px;
+    text-align: center;
+    width: 150px;
+  }
+  
+  .artist-image {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+  }
+  
+  .artist-name {
+    margin: 10px 0 5px;
+  }
+  
+  .artist-label {
+    color: #f0e0df;
+  }
