@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './LoginForm.css';
-import Input from '../pages/Register/Input';
+import Input from '../../pages/Register/Input';
 
 //Autenticação Cadastral
-import { login } from '../spotify';
+import { login } from '../../spotify';
 
 const LoginForm = () => {
   const navigate = useNavigate();

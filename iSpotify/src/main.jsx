@@ -15,16 +15,17 @@ import ChangeEmail from './pages/ChangeEmail/ChangeEmail';
 import ChangePassword from './pages/ChangePassword/ChangePassword';
 
 //Lógica de Autenticação Cadastral
-import LoginForm from './components/LoginForm';
+import LoginForm from './components/LoginForm/LoginForm';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 
 import './index.css';
 import ArtistTracksPage from './pages/ArtistTracksPage/ArtistTracksPage.jsx';
+import { Login } from '@mui/icons-material';
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Home />,
+    element: <Home/>,
     errorElement: <div>404 Not Found  <a href="/">Go To Main Page</a> </div>
   },
   /*

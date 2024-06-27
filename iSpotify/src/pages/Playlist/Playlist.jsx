@@ -1,6 +1,5 @@
 import React from 'react';
-import Sidebar from '../../components/Sidebar_artistas';
-import ArtistsPage from '../../components/ArtistsPage';
+import Sidebar from '../../components/Sidebar/Sidebar';
 import './Playlist.module.css';
 
 const Playlist = () => {
