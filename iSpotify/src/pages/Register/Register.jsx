@@ -38,6 +38,8 @@ const Register = () => {
           <button className='buttonRegister'>CADASTRAR</button>
         </form>
 */
+//imgSrc="src/assets/account.png"
+
 
   return (
     <>

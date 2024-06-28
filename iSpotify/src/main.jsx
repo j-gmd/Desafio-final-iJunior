@@ -24,7 +24,7 @@ import ArtistTracksPage from './pages/ArtistTracksPage/ArtistTracksPage.jsx';
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Home />,
+    element: <ArtistsPage />,
     errorElement: <div>404 Not Found  <a href="/">Go To Main Page</a> </div>
   },
   /*
