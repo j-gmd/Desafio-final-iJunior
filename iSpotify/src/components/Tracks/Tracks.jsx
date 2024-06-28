@@ -2,8 +2,10 @@ import { useEffect, useState } from "react";
 import PropTypes from 'prop-types';
 import { getArtistTracks } from "../../spotify";
 
-import styles from './Tracks.module.css';
+import DeleteIcon from '@mui/icons-material/Delete';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
+import styles from './Tracks.module.css';
 
 export default function Tracks({ artistId })
 {
@@ -33,23 +35,44 @@ export default function Tracks({ artistId })
 
     return (
         <div className={styles.trackContainer}>
-            <div className={styles.header}>
-                <p>#TÍTULO</p>
-                <p>ÁLBUM</p>
-                <img src="" alt="img" />
-            </div>
-            <hr className={styles.separator}/>
+            
             {tracksArray.map((track, index) => (
                 <div className={styles.trackInfo} key={track.name}>
-                    <div className={styles.trackNameAndArtistName}>
-                        <p className={styles.trackName}> {track.name}</p>
-                        <p className={styles.artistName}> {track.artistName}</p>
+
+
+                    <div className={styles.trackNameAndArtistAndIndex}>
+                        <div className={styles.trackIndex}>
+                            <span>{index}</span>
+                        </div>
+                        <div className={styles.trackNameAndArtistName}>
+                            <p className={styles.trackName}> {track.name}</p>
+                            <p className={styles.artistName}> {track.artistName}</p>
+                        </div>
                     </div>
-                    <p className={styles.albumName}>{track.albumName}</p>
+
+                    <div className={styles.albumName}>
+                        <p>{track.albumName}</p>
+                    </div>
+
                     <div>
-                        <img src="" alt="heart " />
-                        <img src="" alt="garbage" />
+                        <FavoriteBorderIcon 
+                            style={
+                                {
+                                    fontSize: '3.5rem',
+                                    marginTop: '1.5rem'
+                                }
+                            } 
+                        /> 
+                        <DeleteIcon 
+                            style={
+                                {
+                                    fontSize: '3.5rem',
+                                    marginTop: '1.5rem'
+                                }
+                            } 
+                        /> 
                     </div>
+
                 </div>
             ))}
         </div>

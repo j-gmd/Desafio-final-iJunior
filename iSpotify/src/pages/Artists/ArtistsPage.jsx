@@ -12,7 +12,9 @@ export default function ArtistsPage()
     ];
     return (
         <div className={styles.artistsPage}>
-            <Sidebar links={links}/>
+
+            <Sidebar className={styles.algo} links={links}/>
+
             <div className={styles.cardsContainer}>
                 <p className={styles.title}>Artistas</p>
                 <div className={styles.firstCardsRow}>
