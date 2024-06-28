@@ -1,16 +1,20 @@
-import { useState } from 'react'
 import './Input.css'
 
-function Input({tipo, imgSrc}) {
-
-  return (
-    <>
-      <div className='inputDiv'>
-        <input placeholder={tipo} className='input'/>
-        <img src={imgSrc}></img>
-      </div>
-    </>
-  )
+function Input({ tipo, imgSrc, type = "text", value, onChange }) {
+	return (
+		<>
+			<div className='inputDiv'>
+				<input
+					placeholder={tipo}
+					type={type}
+					className='input'
+					value={value}
+					onChange={onChange}
+				/>
+				<img src={imgSrc} alt={tipo} />
+			</div>
+		</>
+	);
 }
 
-export default Input
+export default Input;

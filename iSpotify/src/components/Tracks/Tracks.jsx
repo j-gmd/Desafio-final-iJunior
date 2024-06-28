@@ -2,12 +2,10 @@ import { useEffect, useState } from "react";
 import PropTypes from 'prop-types';
 import { getArtistTracks } from "../../spotify";
 
-import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import DeleteIcon from '@mui/icons-material/Delete';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
 import styles from './Tracks.module.css';
-import { Delete } from "@mui/icons-material";
 
 export default function Tracks({ artistId })
 {
