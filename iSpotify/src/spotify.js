@@ -25,7 +25,15 @@ export const login = async (email, password) => {
 	} catch (error) {
 		console.log(error.response?.data);
 		console.error("Erro ao fazer login:", error);
-		throw new Error("Erro ao fazer login, verifique suas credenciais");
+		if (error.response) {
+			if (error.response.status === 401) {
+			  throw new Error("Senha Incorreta");
+			} else if (error.response.status === 404) {
+			  throw new Error("Conta inexistente");
+			}
+		  }
+		  throw new Error("Ocorreu um erro inesperado.");
+		//throw new Error("Erro ao fazer login, verifique suas credenciais");
 	}
 };
 

@@ -26,18 +26,6 @@ const Register = () => {
 		navigate("/");
 	};
 
-<<<<<<< HEAD
-/*
- <form className='form'>
-          <Input tipo={"Email"} imgSrc={"src/assets/mail.png"}/>
-          <Input tipo={"Crie uma senha"} imgSrc={"src/assets/lock.png"}/>
-          <Input tipo={"Como devemos chamar você ?"} imgSrc={"src/assets/account.png"}/>
-          <button className='buttonRegister'>CADASTRAR</button>
-        </form>
-*/
-//imgSrc="src/assets/account.png"
-
-=======
 	return (
 		<>
 			<div className="  Register">
@@ -79,6 +67,5 @@ const Register = () => {
 		</>
 	);
 };
->>>>>>> d84a9758cbe181650365fc85c0f7bf072977cb42
 
 export default Register;

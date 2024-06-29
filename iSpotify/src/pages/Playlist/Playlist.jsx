@@ -1,9 +1,5 @@
 import React from 'react';
 import Sidebar from '../../components/Sidebar/Sidebar';
-<<<<<<< HEAD
-//import ArtistsPage from '../../components/ArtistsPage';
-=======
->>>>>>> d84a9758cbe181650365fc85c0f7bf072977cb42
 import './Playlist.module.css';
 
 const Playlist = () => {

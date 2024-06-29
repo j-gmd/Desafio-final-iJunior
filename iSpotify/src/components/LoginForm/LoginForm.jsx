@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { login } from "../../spotify";
 import Input from "../../pages/Register/Input";
 import styles from "./LoginForm.module.css";
+import { Alert } from "@mui/material";
 
 const LoginForm = () => {
 	const navigate = useNavigate();
@@ -12,13 +13,35 @@ const LoginForm = () => {
 
 	const handleLogin = async (e) => {
 		e.preventDefault();
-		try {
+
+// Verifica se ambos os campos estão preenchidos
+    if (!email || !password) {
+      setError("É necessário preencher todos os campos.");
+      return;
+    }
+
+    try {
+      await login(email, password);
+      navigate("/artists");
+    } catch (err) {
+      // Tratamento específico de erros
+      if (err.response && err.response.status === 401) {
+        setError("Senha Incorreta");
+      } else if (err.response && err.response.status === 404) {
+        setError("Conta inexistente");
+      } else {
+        setError("Ocorreu um erro inesperado.");
+      }
+    }
+  };
+
+		/*try {
 			await login(email, password);
 			navigate("/artists");
 		} catch (err) {
 			setError(err.message);
 		}
-	};
+	};*/
 
 	const handleRegister = () => {
 		navigate("/register");
@@ -29,7 +52,7 @@ const LoginForm = () => {
 			<div className={styles.loginContainer}>
 				<div className={styles.title}>iSpotify ®</div>
 				<div className={styles.subtitle}>Música para todos.</div>
-				{error && <div className={styles.errorMessage}>{error}</div>}
+				{error && <Alert severity={error === "É necessário preencher todos os campos." || error === "Ocorreu um erro inesperado." ? "warning" : "error"}>{error}</Alert>}
 				<form onSubmit={handleLogin}>
 					<Input
 						tipo="Email"
