@@ -6,7 +6,6 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 // Pages Import
 import Home from "./pages/Home/Home.jsx";
-import Playlist from "./pages/Playlist/Playlist.jsx";
 import LikedMusics from "./pages/LikedMusics/LikedMusics.jsx";
 import Register from "./pages/Register/Register.jsx";
 import ArtistsPage from "./pages/Artists/ArtistsPage.jsx";
@@ -31,15 +30,7 @@ const router = createBrowserRouter([
 		),
 	},
 	{
-		path: "/playlist",
-		element: (
-			<PrivateRoute>
-				<Playlist />
-			</PrivateRoute>
-		),
-	},
-	{
-		path: "/liked-musics/",
+		path: "/liked-musics/:userId",
 		element: (
 			<PrivateRoute>
 				<LikedMusics />
@@ -67,7 +58,7 @@ const router = createBrowserRouter([
 		),
 	},
 	{
-		path: "/my-account",
+		path: "/my-account/:userId",
 		element: (
 			<PrivateRoute>
 				<MyAccount />
@@ -75,7 +66,7 @@ const router = createBrowserRouter([
 		),
 	},
 	{
-		path: "/change-email",
+		path: "/change-email/:userId",
 		element: (
 			<PrivateRoute>
 				<ChangeEmail />
@@ -83,7 +74,7 @@ const router = createBrowserRouter([
 		),
 	},
 	{
-		path: "/change-password",
+		path: "/change-password/:userId",
 		element: (
 			<PrivateRoute>
 				<ChangePassword />

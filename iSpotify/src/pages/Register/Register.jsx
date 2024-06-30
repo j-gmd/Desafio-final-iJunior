@@ -16,7 +16,7 @@ const Register = () => {
 		try {
 			console.log(name, email, password);
 			await register(name, email, password);
-			navigate("/login");
+			navigate("/");
 		} catch (err) {
 			setError(err.message);
 		}
@@ -50,6 +50,7 @@ const Register = () => {
 						/>
 						<Input
 							tipo="Senha"
+							type="password"
 							imgSrc="src/assets/lock.png"
 							value={password}
 							onChange={(e) => setPassword(e.target.value)}

@@ -1,25 +1,15 @@
-/* Esse arquivo tem a lógica de autenticar o token na API do spotify e possui
-	a função getArtist que pega um artista da API do Spotify*/
 import axios from "axios";
 
 const api = axios.create({
-	baseURL: "http://localhost:3030/api", // ajuste o URL conforme necessário
+	baseURL: "http://localhost:3030/api",
 	withCredentials: true,
 });
 
-/**
- *
- * @param {String} email
- * @param {String} password
- * @details : Na página do github, diz que se o login for um sucesso, nada será
- * retornado. Logo, não faz sentido pegar o retorno de api.post, só se quisermos
- * verificar o status da requisição (204 é sucesso).
- */
 export const login = async (email, password) => {
 	try {
 		const response = await api.post("/users/login", { email, password });
 		console.log("Resposta do login:", response.status);
-		localStorage.setItem('user', email);
+		localStorage.setItem("user", email);
 	} catch (error) {
 		console.log(error.response?.data);
 		console.error("Erro ao fazer login:", error);
@@ -38,7 +28,6 @@ export const login = async (email, password) => {
 			}
 		}
 		throw new Error("Ocorreu um erro inesperado.");
-		//throw new Error("Erro ao fazer login, verifique suas credenciais");
 	}
 };
 
@@ -58,8 +47,6 @@ export const register = async (name, email, password, role = "user") => {
 	}
 };
 
-//Função para atualizar o usuário
-
 export const updateUser = async (id, data) => {
 	try {
 		const response = await api.put(`/users/${id}`, data);
@@ -78,7 +65,6 @@ export const updateUser = async (id, data) => {
 	}
 };
 
-
 export const logout = async () => {
 	try {
 		await api.post("/users/logout");
@@ -90,10 +76,6 @@ export const logout = async () => {
 	}
 };
 
-/**
- * @param {String} artistId
- * @returns {Object}
- */
 export async function getArtist(artistId) {
 	try {
 		const response = await api.get(`/artists/${artistId}`);
@@ -120,6 +102,47 @@ export async function getCurrentUser() {
 		return user.data;
 	} catch (error) {
 		console.error("Erro ao obter o usuário atual", error);
+		throw error;
+	}
+}
+
+/**
+ *
+ * @param {Number} songId
+ */
+export async function likeSong(songId) {
+	try {
+		const response = await api.post(`/users-songs/${songId}`);
+		return response.status;
+	} catch (error) {
+		console.error("Erro ao curtir a música", error);
+		throw error;
+	}
+}
+/**
+ *
+ * @param {Number} songId
+ */
+export async function unlikeSong(songId) {
+	try {
+		const response = await api.delete(`/users-songs/${songId}`);
+		return response.status;
+	} catch (error) {
+		console.error("Erro ao descurtir a música na api", error);
+		throw error;
+	}
+}
+
+/**
+ *
+ * @param {Number} userId
+ */
+export async function getUserLikedSongs(userId) {
+	try {
+		const response = await api.get(`/users-songs/users/${userId}`);
+		return response.data;
+	} catch (error) {
+		console.error("Erro ao obter músicas curtidas do usuário", error);
 		throw error;
 	}
 }

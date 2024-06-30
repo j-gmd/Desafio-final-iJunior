@@ -2,14 +2,12 @@ import React from "react";
 import LoginForm from "../../components/LoginForm/LoginForm";
 import Sidebar from "../../components/Sidebar/Sidebar";
 
-import "./Home.css";
+import styles from "./Home.module.css";
 
 const Home = () => {
-
 	return (
-		<div className="home-container">
-			<LoginForm/>
-			<Sidebar/>
+		<div className={styles.homeContainer}>
+			<LoginForm />
 		</div>
 	);
 };

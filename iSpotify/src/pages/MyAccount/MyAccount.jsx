@@ -104,37 +104,3 @@ const MyAccount = () => {
 
 export default MyAccount;
 
-/*const MyAccount = () => {
-    const navigate = useNavigate();
-
-  const links = [
-    { name: 'Artistas', path: '/artists' },
-    { name: 'Músicas Curtidas', path: '/liked-musics' },
-    { name: 'Minha Conta', path: '/my-account' }
-  ];
-
-  const handleChangeEmail = () => {
-    navigate('/change-email');
-  };
-
-  const handleChangePassword = () => {
-    navigate('/change-password');
-  };
-
-  return (
-    <div className="main_content">
-      <Sidebar links={links} />
-      <div className="account_box">
-        <p>Minha Conta</p>
-        <form>
-          <Input tipo={"Nome"} />
-          <Input tipo={"Email"} />
-        </form>
-        <button className="TrocarEmail" onClick={handleChangeEmail}>Trocar E-mail</button>
-        <button className="TrocarSenha" onClick={handleChangePassword}>Trocar Senha</button>
-      </div>
-    </div>
-  );
-};
-
-export default MyAccount; */

@@ -1,9 +1,26 @@
+import { useState, useEffect} from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import styles from "./Sidebar.module.css";
 import { logout, getCurrentUser } from "../../spotify";
 
+
 export default function Sidebar() {
 	const navigate = useNavigate();
+	const [user, setUser] = useState(null);
+
+	useEffect(() => {
+		const fetchUser = async () => {
+			try {
+				const user = await getCurrentUser();
+				setUser(user);
+			} catch (error) {
+				console.error("Erro ao obter o usuário atual: ", error);
+			}
+		};
+
+		fetchUser();
+	}, []);
+
 	const handleLogout = async () => {
 		try {
 			await logout();
@@ -13,22 +30,13 @@ export default function Sidebar() {
 		}
 	};
 
-	// Links embutidos diretamente no componente
-
-	// const user =  getCurrentUser();
-	// const id = user.id;
-
 	const links = [
 		{ name: "Artistas", path: "/artists" },
-		{ name: "Músicas Curtidas", path: "/liked-musics" },
-		{ name: "Minha Conta", path: "/my-account" },
+		...(user ? [
+			{ name: "Músicas Curtidas", path: `/liked-musics/${user.id}` },
+			{ name: "Minha Conta", path: `/my-account/${user.id}` },
+		] : []),
 	];
-
-	// const links = [
-	// 	{ name: "Artistas", path: "/artists" },
-	// 	{ name: "Músicas Curtidas", path: `/liked-musics/${id}`},
-	// 	{ name: "Minha Conta", path: "/my-account" },
-	// ];
 
 	return (
 		<div className={styles.sidebar}>

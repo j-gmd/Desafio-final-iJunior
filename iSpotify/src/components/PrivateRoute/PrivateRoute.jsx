@@ -22,8 +22,6 @@ import { Navigate } from "react-router-dom";
 const PrivateRoute = ({ children }) => {
 	// Verifica se existe um token no localStorage
 	const isAuthenticated = !!localStorage.getItem('user');
-	console.log(localStorage.getItem('user'));
-	console.log(isAuthenticated);
 
 	// Se isAuthenticated for verdadeiro, renderiza os children, senão redireciona para a página de login
 	return isAuthenticated ? children : <Navigate to="/" replace />;
