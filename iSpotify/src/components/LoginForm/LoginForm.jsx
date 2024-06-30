@@ -14,28 +14,29 @@ const LoginForm = () => {
 	const handleLogin = async (e) => {
 		e.preventDefault();
 
-// Verifica se ambos os campos estão preenchidos
-    if (!email || !password) {
-      setError("É necessário preencher todos os campos.");
-      return;
-    }
+		// Verifica se ambos os campos estão preenchidos
+		if (!email || !password) {
+			setError("É necessário preencher todos os campos.");
+			return;
+		}
 
-    try {
-      await login(email, password);
-      navigate("/artists");
-    } catch (err) {
-      // Tratamento específico de erros
-      if (err.response && err.response.status === 401) {
-        setError("Senha Incorreta");
-      } else if (err.response && err.response.status === 404) {
-        setError("Conta inexistente");
-      } else {
-        setError("Ocorreu um erro inesperado.");
-      }
-    }
-  };
+		try {
+			await login(email, password);
 
-		/*try {
+			navigate("/artists");
+		} catch (err) {
+			// Tratamento específico de erros
+			if (err.response && err.response.status === 401) {
+				setError("Senha Incorreta");
+			} else if (err.response && err.response.status === 404) {
+				setError("Conta inexistente");
+			} else {
+				setError("Usuário ou senha incorretos");
+			}
+		}
+	};
+
+	/*try {
 			await login(email, password);
 			navigate("/artists");
 		} catch (err) {
@@ -52,7 +53,19 @@ const LoginForm = () => {
 			<div className={styles.loginContainer}>
 				<div className={styles.title}>iSpotify ®</div>
 				<div className={styles.subtitle}>Música para todos.</div>
-				{error && <Alert severity={error === "É necessário preencher todos os campos." || error === "Ocorreu um erro inesperado." ? "warning" : "error"}>{error}</Alert>}
+				{error && (
+					<Alert
+						severity={
+							error ===
+								"É necessário preencher todos os campos." ||
+							error === "Usuário ou senha incorretos."
+								? "warning"
+								: "error"
+						}
+					>
+						{error}
+					</Alert>
+				)}
 				<form onSubmit={handleLogin}>
 					<Input
 						tipo="Email"

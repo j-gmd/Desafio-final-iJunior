@@ -24,7 +24,7 @@ export default function ArtistCard({ artistId }) {
     return (
         <Link className={styles.artistLink} to={`/artist-tracks-page/${artistId}`}>
             <div className={styles.artistCard}>
-            <img className={styles.artistImage} src={artist.images[0]?.url} alt={artist.name} />
+            <img className={styles.artistImage} src={artist.image} alt={artist.name} />
             <p className={styles.artistName}>{artist.name}</p>
             <p className={styles.placeholder}>Artista</p>
             </div>
@@ -33,5 +33,5 @@ export default function ArtistCard({ artistId }) {
 }
 
 ArtistCard.propTypes = {
-    artistId: PropTypes.string.isRequired
+    artistId: PropTypes.number.isRequired,
 };

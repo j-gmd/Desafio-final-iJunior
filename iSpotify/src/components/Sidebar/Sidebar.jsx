@@ -1,18 +1,8 @@
 import { Link, useNavigate } from "react-router-dom";
-import { PropTypes, arrayOf } from "prop-types";
-import { Navigate } from "react-router-dom";
-
 import styles from "./Sidebar.module.css";
-import { logout } from "../../spotify";
+import { logout, getCurrentUser } from "../../spotify";
 
-/**
- * @param {Object} props
- * @param {Array} props.links
- * @param {String} props.links[].name
- * @param {String} props.links[].path
- * @returns {JSX.Element}
- */
-export default function Sidebar({ links }) {
+export default function Sidebar() {
 	const navigate = useNavigate();
 	const handleLogout = async () => {
 		try {
@@ -23,34 +13,40 @@ export default function Sidebar({ links }) {
 		}
 	};
 
+	// Links embutidos diretamente no componente
+
+	// const user =  getCurrentUser();
+	// const id = user.id;
+
+	const links = [
+		{ name: "Artistas", path: "/artists" },
+		{ name: "Músicas Curtidas", path: "/liked-musics" },
+		{ name: "Minha Conta", path: "/my-account" },
+	];
+
+	// const links = [
+	// 	{ name: "Artistas", path: "/artists" },
+	// 	{ name: "Músicas Curtidas", path: `/liked-musics/${id}`},
+	// 	{ name: "Minha Conta", path: "/my-account" },
+	// ];
+
 	return (
 		<div className={styles.sidebar}>
 			<span>
 				<strong>iSpotify®</strong>
 			</span>
-			{links.map((link) => {
-				return (
-					<Link
-						className={styles.linkStyle}
-						key={link.path}
-						to={link.path}
-					>
-						{link.name}
-					</Link>
-				);
-			})}
+			{links.map((link) => (
+				<Link
+					className={styles.linkStyle}
+					key={link.path}
+					to={link.path}
+				>
+					{link.name}
+				</Link>
+			))}
 			<button className={styles.logoutButton} onClick={handleLogout}>
 				Logout
 			</button>
 		</div>
 	);
 }
-
-Sidebar.propTypes = {
-	links: arrayOf(
-		PropTypes.shape({
-			name: PropTypes.string.isRequired,
-			path: PropTypes.string.isRequired,
-		})
-	).isRequired,
-};

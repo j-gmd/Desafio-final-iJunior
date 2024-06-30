@@ -5,9 +5,11 @@ import Sidebar from "../../components/Sidebar/Sidebar";
 import "./Home.css";
 
 const Home = () => {
+
 	return (
 		<div className="home-container">
-			<LoginForm />
+			<LoginForm/>
+			<Sidebar/>
 		</div>
 	);
 };

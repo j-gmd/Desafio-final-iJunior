@@ -6,13 +6,6 @@ import "./ChangePassword.css";
 
 const ChangeEmail = () => {
 	const navigate = useNavigate();
-
-	const links = [
-		{ name: "Artistas", path: "/artists" },
-		{ name: "Músicas Curtidas", path: "/liked-musics" },
-		{ name: "Minha Conta", path: "/my-account" },
-	];
-
 	const handleConfirm = () => {
 		// Lógica para confirmar a troca de email
 	};
@@ -23,7 +16,7 @@ const ChangeEmail = () => {
 
 	return (
 		<div className="main_content">
-			<Sidebar links={links} />
+			<Sidebar />
 			<div className="account_box">
 				<div className="change_box">
 					<p>Trocar E-mail</p>

@@ -1,20 +1,26 @@
-import React from "react";
+import React, {useState} from "react";
 import { useNavigate } from "react-router-dom";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import Input from "../Register/Input";
 import "./ChangeEmail.css";
+import { updateUser } from "../../spotify"; // Importando a função de atualização
+import { Alert } from "@mui/material";
 
-const ChangeEmail = () => {
+const ChangeEmail = ({ userId }) => {
 	const navigate = useNavigate();
+	const [newEmail, setNewEmail] = useState("");
+	const [error, setError] = useState("");
+	const [success, setSuccess] = useState("");
 
-	const links = [
-		{ name: "Artistas", path: "/artists" },
-		{ name: "Músicas Curtidas", path: "/liked-musics" },
-		{ name: "Minha Conta", path: "/my-account" },
-	];
-
-	const handleConfirm = () => {
-		// Lógica para confirmar a troca de email
+	const handleConfirm = async () => {
+		try {
+			await updateUser(userId, { email: newEmail });
+			setSuccess("Email atualizado com sucesso!");
+			setError("");
+		} catch (err) {
+			setError(err.message);
+			setSuccess("");
+		}
 	};
 
 	const handleCancel = () => {
@@ -23,11 +29,17 @@ const ChangeEmail = () => {
 
 	return (
 		<div className="main_content">
-			<Sidebar links={links} />
+			<Sidebar />
 			<div className="account_box">
 				<div className="change_box">
 					<p>Trocar E-mail</p>
-					<Input tipo={"Novo E-mail"} />
+					{error && <Alert severity="error">{error}</Alert>}
+					{success && <Alert severity="success">{success}</Alert>}
+					<Input
+						tipo="Novo E-mail"
+						value={newEmail}
+						onChange={(e) => setNewEmail(e.target.value)}
+					/>
 					<div className="button_group">
 						<button onClick={handleConfirm}>Confirmar</button>
 						<button onClick={handleCancel}>Cancelar</button>

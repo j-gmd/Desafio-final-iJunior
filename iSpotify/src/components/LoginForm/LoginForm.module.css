@@ -38,6 +38,8 @@
 	margin-bottom: 20px;
 	font-weight: bold;
 	font-family: "Roboto", sans-serif;
+	justify-content: center;
+	text-align: center;
 }
 
 .icon {
@@ -90,7 +92,7 @@ input:focus {
 	font-weight: bold;
 }
 
-.login-button:hover {
+.loginButton:hover {
 	background-color: #3fe168;
 	color: #ffffff;
 }
@@ -101,6 +103,7 @@ input:focus {
 	color: #ffffff;
 	font-family: "Roboto", sans-serif;
 	font-weight: bold;
+	text-align: center;
 }
 
 .signupText a {

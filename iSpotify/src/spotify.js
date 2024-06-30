@@ -1,5 +1,5 @@
 /* Esse arquivo tem a lógica de autenticar o token na API do spotify e possui
-a função getArtist que pega um artista da API do Spotify*/
+	a função getArtist que pega um artista da API do Spotify*/
 import axios from "axios";
 
 const api = axios.create({
@@ -17,22 +17,27 @@ const api = axios.create({
  */
 export const login = async (email, password) => {
 	try {
-		const response = await api.post("/users/login", {
-			email,
-			password,
-		});
+		const response = await api.post("/users/login", { email, password });
 		console.log("Resposta do login:", response.status);
+		localStorage.setItem('user', email);
 	} catch (error) {
 		console.log(error.response?.data);
 		console.error("Erro ao fazer login:", error);
+
 		if (error.response) {
+			const errorMessage =
+				error.response.data?.message || "Ocorreu um erro inesperado.";
 			if (error.response.status === 401) {
-			  throw new Error("Senha Incorreta");
+				if (errorMessage.includes("senha")) {
+					throw new Error("Senha Incorreta");
+				} else if (errorMessage.includes("email")) {
+					throw new Error("Conta inexistente");
+				}
 			} else if (error.response.status === 404) {
-			  throw new Error("Conta inexistente");
+				throw new Error("Conta inexistente");
 			}
-		  }
-		  throw new Error("Ocorreu um erro inesperado.");
+		}
+		throw new Error("Ocorreu um erro inesperado.");
 		//throw new Error("Erro ao fazer login, verifique suas credenciais");
 	}
 };
@@ -53,6 +58,27 @@ export const register = async (name, email, password, role = "user") => {
 	}
 };
 
+//Função para atualizar o usuário
+
+export const updateUser = async (id, data) => {
+	try {
+		const response = await api.put(`/users/${id}`, data);
+		console.log("Resposta da atualização:", response.status);
+	} catch (error) {
+		console.log(error.response?.data);
+		console.error("Erro ao atualizar usuário:", error);
+
+		if (error.response) {
+			const errorMessage =
+				error.response.data?.message || "Ocorreu um erro inesperado.";
+			throw new Error(errorMessage);
+		} else {
+			throw new Error("Ocorreu um erro inesperado.");
+		}
+	}
+};
+
+
 export const logout = async () => {
 	try {
 		await api.post("/users/logout");
@@ -64,51 +90,13 @@ export const logout = async () => {
 	}
 };
 
-// Função para obter o token de acesso
-async function getAccessToken() {
-	try {
-		const response = await axios.post(
-			"https://accounts.spotify.com/api/token",
-			"grant_type=client_credentials",
-			{
-				headers: {
-					"Content-Type": "application/x-www-form-urlencoded",
-					Authorization:
-						"Basic " +
-						btoa(
-							`${import.meta.env.VITE_SPOTIFY_CLIENT_ID}:${
-								import.meta.env.VITE_SPOTIFY_CLIENT_SECRET
-							}`
-						),
-				},
-			}
-		);
-		return response.data.access_token;
-	} catch (error) {
-		console.error("Erro ao obter o token de acesso:", error);
-		throw error;
-	}
-}
-
-// Função para obter um artista aleatório
 /**
- *
  * @param {String} artistId
- * @returns an artist
+ * @returns {Object}
  */
 export async function getArtist(artistId) {
 	try {
-		const accessToken = await getAccessToken();
-
-		const response = await axios.get(
-			`https://api.spotify.com/v1/artists/${artistId}`,
-			{
-				headers: {
-					Authorization: `Bearer ${accessToken}`,
-				},
-			}
-		);
-
+		const response = await api.get(`/artists/${artistId}`);
 		return response.data;
 	} catch (error) {
 		console.error("Erro ao obter o artista", error);
@@ -116,25 +104,22 @@ export async function getArtist(artistId) {
 	}
 }
 
-/**
- * @param {String} artistId
- * @return tracks of the artist
- */
 export async function getArtistTracks(artistId) {
 	try {
-		const acessToken = await getAccessToken();
-		const response = await axios.get(
-			`https://api.spotify.com/v1/artists/${artistId}/top-tracks`,
-			{
-				params: { market: "BR" },
-				headers: {
-					Authorization: `Bearer ${acessToken}`,
-				},
-			}
-		);
+		const response = await api.get(`/songs/artist/${artistId}`);
 		return response.data;
 	} catch (error) {
 		console.error("Erro ao obter as tracks do artista", error);
+		throw error;
+	}
+}
+
+export async function getCurrentUser() {
+	try {
+		const user = await api.get("/users/user");
+		return user.data;
+	} catch (error) {
+		console.error("Erro ao obter o usuário atual", error);
 		throw error;
 	}
 }

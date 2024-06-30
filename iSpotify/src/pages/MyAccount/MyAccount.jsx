@@ -8,12 +8,6 @@ const MyAccount = () => {
 	const [isChangeEmailOpen, setIsChangeEmailOpen] = useState(false);
 	const [isChangePasswordOpen, setIsChangePasswordOpen] = useState(false);
 
-	const links = [
-		{ name: "Artistas", path: "/artists" },
-		{ name: "Músicas Curtidas", path: "/liked-musics" },
-		{ name: "Minha Conta", path: "/my-account" },
-	];
-
 	const openChangeEmailModal = () => {
 		setIsChangeEmailOpen(true);
 	};
@@ -29,7 +23,7 @@ const MyAccount = () => {
 
 	return (
 		<div className="main_content">
-			<Sidebar links={links} />
+			<Sidebar />
 			<div className="account_box">
 				<p>Minha Conta</p>
 				<form>
